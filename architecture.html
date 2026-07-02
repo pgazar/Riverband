@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Volunteer Reminders — How It Would Work</title>
+<style>
+  :root{
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --serif:Georgia,"Times New Roman",serif;
+    --ink:#23302B; --muted:#5A6B63; --line:#D8E0DB; --bg:#F5F7F6;
+    --owned:#2F7D5B; --auto:#2F5FA6; --new:#C77D1A; --people:#9FB0A8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.45;padding:28px 20px 40px;}
+  .page{max-width:1040px;margin:0 auto;}
+  header{margin-bottom:18px;}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--owned);font-weight:700;}
+  h1{font-size:27px;font-weight:800;margin:4px 0 6px;letter-spacing:-.01em;}
+  .lede{font-size:15px;color:var(--muted);max-width:760px;}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;box-shadow:0 1px 2px rgba(30,50,40,.04);}
+  .diagram-card{margin:16px 0;padding:14px 14px 6px;}
+  svg{width:100%;height:auto;display:block;}
+  .legend{display:flex;flex-wrap:wrap;gap:16px 22px;padding:10px 8px 14px;font-size:12.5px;color:var(--muted);}
+  .legend span{display:inline-flex;align-items:center;gap:7px;}
+  .sw{width:14px;height:14px;border-radius:4px;border:2px solid;}
+  .sw.owned{background:#E4F0EA;border-color:var(--owned);}
+  .sw.auto{background:#E4EBF6;border-color:var(--auto);}
+  .sw.new{background:#FBEFD9;border-color:var(--new);}
+  .sw.people{background:#ECEFED;border-color:var(--people);}
+  h2{font-size:18px;font-weight:800;margin:26px 0 12px;}
+  .roi{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .stat .big{font-family:var(--serif);font-size:34px;line-height:1.05;font-weight:700;}
+  .stat.time .big{color:var(--owned);}
+  .stat.cost .big{color:var(--new);}
+  .stat.upside .big{color:var(--auto);}
+  .stat .k{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px;}
+  .stat .d{font-size:13px;color:var(--muted);margin-top:8px;}
+  .illus{border:1px dashed var(--auto);background:#F3F6FC;}
+  .illus .tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#fff;background:var(--auto);border-radius:5px;padding:2px 8px;margin-bottom:10px;}
+  .netline{margin-top:16px;padding:14px 18px;border-radius:12px;background:#EAF3EE;border:1px solid #BFDECD;font-size:14.5px;}
+  .netline b{color:var(--owned);}
+  .foot{margin-top:20px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;}
+  @media (max-width:720px){ .roi{grid-template-columns:1fr;} h1{font-size:23px;} }
+  @media print{ body{background:#fff;padding:0;} .card{box-shadow:none;} }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Riverbend Food Alliance &middot; Volunteer Program</div>
+    <h1>Stop the hand-texting: how the volunteer reminder system would work</h1>
+    <p class="lede">Today, sign-ups scatter across a form, a sheet, and Airtable, and every reminder is texted by hand. This is the same information flowing through one roster, with reminders sent automatically &mdash; and a dashboard Diane can check any time.</p>
+  </header>
+
+  <div class="card diagram-card">
+    <svg viewBox="0 0 980 660" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif" role="img" aria-label="Volunteer reminder system architecture">
+<defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L9,3 L0,6 Z" fill="#6B7C74"/></marker></defs>
+<path d="M 125 96 L 125 124" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 272 160 L 362 300" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 752 94 L 722 94" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 654 300 L 622 322" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<path d="M 360 362 L 206 470" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 280 524 L 300 524" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 440 494 L 542 398" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 560 382 L 632 470" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<path d="M 602 360 L 828 470" fill="none" stroke="#6B7C74" stroke-width="2.2" marker-end="url(#ah)"/>
+<rect x="145.0" y="99" width="102" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="196" y="113" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">signs up online</text>
+<rect x="237.0" y="227" width="126" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="300" y="241" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">saved automatically</text>
+<rect x="616.0" y="275" width="168" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="700" y="289" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">reads &amp; updates the roster</text>
+<rect x="140.0" y="394" width="180" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="230" y="408" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">night before: send reminders</text>
+<rect x="270.0" y="537" width="60" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="300" y="551" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">SMS</text>
+<rect x="436.0" y="441" width="168" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="520" y="455" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">reply “yes” updates roster</text>
+<rect x="580.0" y="425" width="96" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="628" y="439" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">Monday recap ✓</text>
+<rect x="706.0" y="393" width="108" height="20" rx="5" fill="#F5F7F6" opacity="0.92"/>
+<text x="760" y="407" text-anchor="middle" font-size="11" fill="#3A463F" font-style="italic">live weekly view</text>
+<path d="M 656 120 L 636 176" fill="none" stroke="#2F5FA6" stroke-width="1.4" stroke-dasharray="4 3"/>
+<rect x="356" y="150" width="288" height="70" rx="10" fill="#EEF3FB" stroke="#2F5FA6" stroke-width="1.4"/>
+<text x="368" y="172" font-size="12.5" font-weight="700" fill="#1E3E70">What is MCP?</text>
+<text x="368" y="190" font-size="11.5" fill="#28405f">A safe “universal adapter” that lets Claude plug into</text>
+<text x="368" y="205" font-size="11.5" fill="#28405f">the tools you already use — you don’t need to know</text>
+<text x="368" y="220" font-size="11.5" fill="#28405f">how it works under the hood.</text>
+<rect x="40" y="38" width="170" height="58" rx="12" fill="#ECEFED" stroke="#9FB0A8" stroke-width="2"/>
+<circle cx="55" cy="53" r="13" fill="#5A6B63"/>
+<text x="55" y="53" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">1</text>
+<text x="125.0" y="71.0" text-anchor="middle" font-size="15" font-weight="700" fill="#3A463F">Volunteer</text>
+<rect x="40" y="126" width="232" height="66" rx="12" fill="#E4F0EA" stroke="#2F7D5B" stroke-width="2"/>
+<circle cx="55" cy="141" r="13" fill="#2F7D5B"/>
+<text x="55" y="141" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">1</text>
+<text x="156.0" y="153.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1C4A37">Signup page</text>
+<text x="156.0" y="170.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">(a simple web page /</text>
+<text x="156.0" y="184.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">Google Form)</text>
+<rect x="360" y="280" width="262" height="122" rx="12" fill="#1C5C43" stroke="#123D2C" stroke-width="3"/>
+<circle cx="375" cy="295" r="13" fill="#F6C463"/>
+<text x="375" y="295" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">2</text>
+<text x="491.0" y="335.0" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">Airtable roster</text>
+<text x="491.0" y="352.0" text-anchor="middle" font-size="12" fill="#DCE9E2">Name / Phone / Routes</text>
+<text x="491.0" y="366.0" text-anchor="middle" font-size="12" fill="#DCE9E2">⭐ the single source of truth</text>
+<rect x="752" y="48" width="196" height="92" rx="12" fill="#E4EBF6" stroke="#2F5FA6" stroke-width="2"/>
+<circle cx="767" cy="63" r="13" fill="#2F5FA6"/>
+<text x="767" y="63" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">4</text>
+<text x="850.0" y="88.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1E3E70">Claude</text>
+<text x="850.0" y="105.0" text-anchor="middle" font-size="11" fill="#1E3E70">the assistant that runs</text>
+<text x="850.0" y="119.0" text-anchor="middle" font-size="11" fill="#1E3E70">the routine for you</text>
+<rect x="656" y="230" width="66" height="150" rx="20" fill="#DCE7F7" stroke="#2F5FA6" stroke-width="2"/>
+<circle cx="661" cy="235" r="13" fill="#2F5FA6"/><text x="661" y="235" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">6</text>
+<text x="689" y="312" text-anchor="middle" font-size="16" font-weight="800" fill="#1E3E70" transform="rotate(0 689 312)">MCP</text>
+<rect x="36" y="470" width="236" height="104" rx="12" fill="#FBEFD9" stroke="#C77D1A" stroke-width="2"/>
+<circle cx="51" cy="485" r="13" fill="#C77D1A"/>
+<text x="51" y="485" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">3</text>
+<text x="154.0" y="516.0" text-anchor="middle" font-size="15" font-weight="700" fill="#7A4B08">Texting service</text>
+<text x="154.0" y="533.0" text-anchor="middle" font-size="10.5" fill="#7A4B08">⚠ the one new tool — needs</text>
+<text x="154.0" y="547.0" text-anchor="middle" font-size="10.5" fill="#7A4B08">Diane’s sign-off (~$45/yr,</text>
+<text x="154.0" y="561.0" text-anchor="middle" font-size="10.5" fill="#7A4B08">e.g. a service like Twilio)</text>
+<rect x="300" y="486" width="180" height="76" rx="12" fill="#ECEFED" stroke="#9FB0A8" stroke-width="2"/>
+<circle cx="315" cy="501" r="13" fill="#5A6B63"/>
+<text x="315" y="501" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">3</text>
+<text x="390.0" y="518.0" text-anchor="middle" font-size="15" font-weight="700" fill="#3A463F">Volunteer’s phone</text>
+<text x="390.0" y="535.0" text-anchor="middle" font-size="10" fill="#3A463F">gets an SMS reminder</text>
+<text x="390.0" y="549.0" text-anchor="middle" font-size="10" fill="#3A463F">— and can reply</text>
+<rect x="548" y="470" width="196" height="96" rx="12" fill="#E4F0EA" stroke="#2F7D5B" stroke-width="2"/>
+<circle cx="563" cy="485" r="13" fill="#2F7D5B"/>
+<text x="563" y="485" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">5</text>
+<text x="646.0" y="512.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1C4A37">Monday recap</text>
+<text x="646.0" y="529.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">in Slack, for Priya:</text>
+<text x="646.0" y="543.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">“reminders sent ✓”</text>
+<rect x="764" y="470" width="184" height="96" rx="12" fill="#E4F0EA" stroke="#2F7D5B" stroke-width="2"/>
+<circle cx="779" cy="485" r="13" fill="#2F7D5B"/>
+<text x="779" y="485" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="700" fill="#FFFFFF">5</text>
+<text x="856.0" y="512.0" text-anchor="middle" font-size="15" font-weight="700" fill="#1C4A37">Live dashboard</text>
+<text x="856.0" y="529.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">signups by shift, for</text>
+<text x="856.0" y="543.0" text-anchor="middle" font-size="10.5" fill="#1C4A37">Diane &amp; the board</text>
+</svg>
+    <div class="legend">
+      <span><span class="sw owned"></span> Already paid for (Airtable, Google, Slack)</span>
+      <span><span class="sw auto"></span> The automation (Claude + MCP)</span>
+      <span><span class="sw new"></span> New cost, needs approval (texting service)</span>
+      <span><span class="sw people"></span> People &amp; their phones</span>
+    </div>
+  </div>
+
+  <h2>What it costs, what it saves</h2>
+  <div class="roi">
+    <div class="card stat time">
+      <div class="k">Priya&rsquo;s time back</div>
+      <div class="big">~312 hrs<span style="font-size:18px;">/year</span></div>
+      <div class="d">Roughly 6 hours a week of manual re-entry and texting &mdash; about <b>$6,000&ndash;8,000/year</b> in staff time.</div>
+    </div>
+    <div class="card stat cost">
+      <div class="k">The only new expense</div>
+      <div class="big">~$45<span style="font-size:18px;">/year</span></div>
+      <div class="d">The texting service is the single item we don&rsquo;t already own. Everything else runs on tools we already pay for.</div>
+    </div>
+    <div class="card stat upside illus">
+      <div class="tag">ILLUSTRATIVE</div>
+      <div class="k">Possible volunteer-hour upside</div>
+      <div class="big">~$29,000<span style="font-size:18px;">/year</span></div>
+      <div class="d"><em>If</em> night-before reminders cut no-shows even modestly (say 35% &rarr; 20%), that&rsquo;s the recovered value of volunteer hours at the $33/hr Independent Sector rate. Our current no-show rate is <b>anecdotal and untracked</b> &mdash; this is an illustration of the potential, not a promise.</div>
+    </div>
+  </div>
+
+  <div class="netline">
+    <b>Bottom line for Diane:</b> ~$45 a year buys back ~6 hours of Priya&rsquo;s week, replaces three scattered lists with one roster, and gives the board a live signups-by-shift dashboard. The one decision needed is approving the texting service.
+  </div>
+
+  <div class="foot">
+    Figures grounded in the team handbook (Priya&rsquo;s ~6 hrs/week; Independent Sector rate ~$33/hr; no-show rate noted as anecdotal). The ~$29,000 figure is explicitly illustrative. Airtable stays the single source of truth; nothing here changes volunteer eligibility or age rules.
+  </div>
+</div>
+</body>
+</html>
