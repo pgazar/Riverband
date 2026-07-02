@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Riverbend Volunteer Shift Signup (Mockup)</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 0 20px 40px;
+    }
+    /* Honest "this is a mockup" banner — always visible, not a hidden alert */
+    .proto-banner {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      margin: 0 -20px 24px;
+      background: #fef3c7;
+      color: #78350f;
+      border-bottom: 2px solid #f59e0b;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    .proto-banner strong { display: inline-block; }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .header {
+      background: #2d3748;
+      color: white;
+      padding: 32px;
+      text-align: center;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .header p {
+      opacity: 0.8;
+    }
+    /* Language toggle */
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      background: rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .lang-toggle button {
+      border: none;
+      background: transparent;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.7;
+    }
+    .lang-toggle button.active {
+      background: white;
+      color: #2d3748;
+      opacity: 1;
+    }
+    .shifts {
+      padding: 32px;
+    }
+    .shift-card {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.2s;
+    }
+    .shift-card:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+    .shift-info h3 {
+      font-size: 18px;
+      color: #2d3748;
+      margin-bottom: 4px;
+    }
+    .shift-info p {
+      color: #718096;
+      font-size: 14px;
+    }
+    .spots {
+      background: #edf2f7;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: #4a5568;
+      margin-top: 10px;
+      display: inline-block;
+    }
+    /* Age requirement label per shift */
+    .age {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      margin-left: 8px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #e6f4ea;
+      color: #1e6b3a;
+    }
+    .age.route {
+      background: #fde8e8;
+      color: #9b1c1c;
+    }
+    .signup-btn {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .signup-btn:hover {
+      background: #5a67d8;
+    }
+    .signup-btn:disabled {
+      background: #cbd5e0;
+      cursor: not-allowed;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 420px;
+    }
+    .modal-content h2 { margin-bottom: 6px; font-size: 20px; color: #2d3748; }
+    .modal-note {
+      background: #fef3c7;
+      color: #78350f;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+    .modal-content label {
+      display: block;
+      font-size: 13px;
+      color: #4a5568;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+    .modal-actions { display: flex; gap: 12px; margin-top: 4px; }
+    .cancel-btn {
+      flex: 1;
+      background: #edf2f7;
+      color: #4a5568;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .signup-btn.full-width { flex: 1; }
+    /* Confirmation preview */
+    .confirm-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #edf2f7;
+      font-size: 14px;
+    }
+    .confirm-row .k { color: #718096; }
+    .confirm-row .v { color: #2d3748; font-weight: 600; text-align: right; }
+    .confirm-check {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="proto-banner" id="protoBanner"></div>
+
+  <div class="container">
+    <div class="header">
+      <div class="lang-toggle">
+        <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+        <button id="btn-es" onclick="setLang('es')">ES</button>
+      </div>
+      <h1 id="hdr-title">🥫 Riverbend Volunteer Shifts</h1>
+      <p id="hdr-sub">Pick a shift below and we'll see you there!</p>
+    </div>
+    <div class="shifts" id="shifts"></div>
+  </div>
+
+  <!-- Signup form modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2 id="modal-title"></h2>
+      <div class="modal-note" id="modal-note"></div>
+      <label id="lbl-name" for="name"></label>
+      <input type="text" id="name">
+      <label id="lbl-email" for="email"></label>
+      <input type="email" id="email">
+      <label id="lbl-phone" for="phone"></label>
+      <input type="tel" id="phone">
+      <div class="modal-actions">
+        <button class="cancel-btn" id="btn-cancel" onclick="closeModal()"></button>
+        <button class="signup-btn full-width" id="btn-confirm" onclick="showConfirmation()"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmation PREVIEW modal (nothing is saved) -->
+  <div class="modal" id="confirm-modal">
+    <div class="modal-content">
+      <div class="confirm-check">✅</div>
+      <h2 id="confirm-title"></h2>
+      <div class="modal-note" id="confirm-note"></div>
+      <div class="confirm-row"><span class="k" id="crow-shift-k"></span><span class="v" id="crow-shift-v"></span></div>
+      <div class="confirm-row"><span class="k" id="crow-name-k"></span><span class="v" id="crow-name-v"></span></div>
+      <div class="confirm-row"><span class="k" id="crow-phone-k"></span><span class="v" id="crow-phone-v"></span></div>
+      <div class="modal-actions">
+        <button class="signup-btn full-width" id="btn-close-confirm" onclick="closeConfirmation()"></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---- Shift data. `type` maps to the handbook's age rule + (later) the Airtable "route". ----
+    const shifts = [
+      { id: 1, day: "Tuesday",  time: "9am – 12pm", type: "sort",    need: 8,  taken: 3 },
+      { id: 2, day: "Tuesday",  time: "1pm – 4pm",  type: "sort",    need: 6,  taken: 6 },
+      { id: 3, day: "Thursday", time: "9am – 12pm", type: "sort",    need: 8,  taken: 1 },
+      { id: 4, day: "Saturday", time: "8am – 11am", type: "route",   need: 12, taken: 5 },
+      { id: 5, day: "Saturday", time: "9am – 1pm",  type: "dropoff", need: 4,  taken: 2 },
+    ];
+
+    // ---- Plain text in both languages. Lightweight: swap strings, no framework. ----
+    const T = {
+      en: {
+        title: "🥫 Riverbend Volunteer Shifts",
+        sub: "Pick a shift below and we'll see you there!",
+        banner: "<strong>Preview only.</strong> This sign-up page is a mockup to show the design. Nothing you enter here is saved anywhere yet — no shift is actually booked.",
+        location: { sort: "Warehouse sort", route: "Mobile pantry — Ellis", dropoff: "Warehouse public drop-off" },
+        age: {
+          sort:    "Ages 14+ with parental consent · 16+ on your own",
+          route:   "18+ only — no minors on delivery routes",
+          dropoff: "16+ on your own"
+        },
+        spots: (open, need) => `${open} of ${need} spots open`,
+        signup: "Sign up",
+        full: "Full",
+        modalTitle: (s) => `Sign up for ${s}`,
+        modalNote: "Preview only — submitting this does not book a shift or save your details.",
+        name: "Your name",
+        email: "Email",
+        phone: "Phone (for reminder text)",
+        cancel: "Cancel",
+        confirm: "Confirm",
+        needName: "Please enter your name.",
+        confirmTitle: "This is what a confirmation would look like",
+        confirmNote: "Nothing has been saved — this is a preview of the design only. In the real system this shift would go to the Airtable roster and a reminder text would be sent the day before.",
+        cShiftK: "Shift", cNameK: "Name", cPhoneK: "Reminder text to",
+        noPhone: "(no phone entered)",
+        close: "Close"
+      },
+      es: {
+        title: "🥫 Turnos de Voluntariado Riverbend",
+        sub: "Elige un turno abajo y ¡nos vemos allí!",
+        banner: "<strong>Solo vista previa.</strong> Esta página es una maqueta para mostrar el diseño. Nada de lo que escribas aquí se guarda todavía — ningún turno queda reservado.",
+        location: { sort: "Clasificación en el almacén", route: "Despensa móvil — Ellis", dropoff: "Entrega al público en el almacén" },
+        age: {
+          sort:    "14+ con permiso de los padres · 16+ sin acompañante",
+          route:   "Solo 18+ — no se permiten menores en las rutas",
+          dropoff: "16+ sin acompañante"
+        },
+        spots: (open, need) => `${open} de ${need} lugares disponibles`,
+        signup: "Inscribirse",
+        full: "Lleno",
+        modalTitle: (s) => `Inscribirse para ${s}`,
+        modalNote: "Solo vista previa — enviar esto no reserva un turno ni guarda tus datos.",
+        name: "Tu nombre",
+        email: "Correo electrónico",
+        phone: "Teléfono (para recordatorio por mensaje)",
+        cancel: "Cancelar",
+        confirm: "Confirmar",
+        needName: "Por favor escribe tu nombre.",
+        confirmTitle: "Así se vería una confirmación",
+        confirmNote: "No se ha guardado nada — esto es solo una vista previa del diseño. En el sistema real, este turno se enviaría a la lista de Airtable y se mandaría un mensaje de recordatorio el día anterior.",
+        cShiftK: "Turno", cNameK: "Nombre", cPhoneK: "Recordatorio a",
+        noPhone: "(no se ingresó teléfono)",
+        close: "Cerrar"
+      }
+    };
+
+    let lang = 'en';
+    let selectedShift = null;
+
+    function shiftLabel(s) {
+      return `${s.day} ${s.time} · ${T[lang].location[s.type]}`;
+    }
+
+    function render() {
+      const t = T[lang];
+      document.getElementById('shifts').innerHTML = shifts.map(s => {
+        const full = s.taken >= s.need;
+        const open = s.need - s.taken;
+        const ageClass = s.type === 'route' ? 'age route' : 'age';
+        const ageIcon = s.type === 'route' ? '🚐' : '📦';
+        return `
+          <div class="shift-card">
+            <div class="shift-info">
+              <h3>${s.day} · ${s.time}</h3>
+              <p>${t.location[s.type]}</p>
+              <div>
+                <span class="spots">${t.spots(open, s.need)}</span>
+                <span class="${ageClass}">${ageIcon} ${t.age[s.type]}</span>
+              </div>
+            </div>
+            <button class="signup-btn" ${full ? 'disabled' : ''} onclick="openModal(${s.id})">
+              ${full ? t.full : t.signup}
+            </button>
+          </div>`;
+      }).join('');
+    }
+
+    function applyStaticText() {
+      const t = T[lang];
+      document.getElementById('protoBanner').innerHTML = t.banner;
+      document.getElementById('hdr-title').textContent = t.title;
+      document.getElementById('hdr-sub').textContent = t.sub;
+      document.getElementById('lbl-name').textContent = t.name;
+      document.getElementById('lbl-email').textContent = t.email;
+      document.getElementById('lbl-phone').textContent = t.phone;
+      document.getElementById('name').placeholder = t.name;
+      document.getElementById('email').placeholder = t.email;
+      document.getElementById('phone').placeholder = t.phone;
+      document.getElementById('btn-cancel').textContent = t.cancel;
+      document.getElementById('btn-confirm').textContent = t.confirm;
+      document.getElementById('btn-close-confirm').textContent = t.close;
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+      document.documentElement.lang = lang;
+      // Refresh any open modal titles/notes in the new language
+      if (selectedShift) {
+        document.getElementById('modal-title').textContent = t.modalTitle(shiftLabel(selectedShift));
+        document.getElementById('modal-note').textContent = t.modalNote;
+      }
+    }
+
+    function setLang(l) {
+      lang = l;
+      applyStaticText();
+      render();
+    }
+
+    function openModal(id) {
+      const t = T[lang];
+      selectedShift = shifts.find(s => s.id === id);
+      document.getElementById('modal-title').textContent = t.modalTitle(shiftLabel(selectedShift));
+      document.getElementById('modal-note').textContent = t.modalNote;
+      document.getElementById('modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+    }
+
+    // Shows a PREVIEW of a confirmation. Deliberately does NOT save anything,
+    // does NOT change the "spots open" counts, and does NOT book the shift.
+    function showConfirmation() {
+      const t = T[lang];
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!name) { alert(t.needName); return; }
+
+      document.getElementById('confirm-title').textContent = t.confirmTitle;
+      document.getElementById('confirm-note').textContent = t.confirmNote;
+      document.getElementById('crow-shift-k').textContent = t.cShiftK;
+      document.getElementById('crow-shift-v').textContent = shiftLabel(selectedShift);
+      document.getElementById('crow-name-k').textContent = t.cNameK;
+      document.getElementById('crow-name-v').textContent = name;
+      document.getElementById('crow-phone-k').textContent = t.cPhoneK;
+      document.getElementById('crow-phone-v').textContent = phone || t.noPhone;
+
+      document.getElementById('modal').classList.remove('open');
+      document.getElementById('confirm-modal').classList.add('open');
+    }
+
+    function closeConfirmation() {
+      document.getElementById('confirm-modal').classList.remove('open');
+      // Clear the form fields; nothing was stored anywhere.
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+    }
+
+    // Initial paint
+    applyStaticText();
+    render();
+  </script>
+</body>
+</html>
