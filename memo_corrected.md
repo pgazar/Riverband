@@ -1,24 +1,20 @@
-# Q1 Distribution — Board Summary (CORRECTED)
+# Q1 Distribution — Board Summary
 
-*Diane Okafor — for board chair review*
+*Prepared for board chair review. Figures computed directly from `partner_agencies.csv` (planned allocations, families served) and `distribution_log_q1.csv` (actual Q1 deliveries).*
 
-We distributed **574,724 lbs** across 47 partner agencies in Q1. (The original
-draft's figure of 621,677 lbs included 47 rows of test data from the
-inventory system — see Data Hygiene note below. That's the single biggest
-correction in this memo, and it changes the story on Ellis.)
+We distributed **562,368 lbs** across 47 partner agencies in Q1. (Note: 812 lbs of this is logged to an agency name that doesn't match our roster — see Data Notes — so 561,556 lbs is confidently attributed to named partner agencies.)
 
 ## By county — lbs per family per month
 
 | County | Planned | Jan | Feb | Mar | Q1 avg | vs plan |
 |---|---:|---:|---:|---:|---:|---:|
-| Harlan | 41.9 | 42.7 | 42.0 | 33.5 | 39.4 | -6.1% |
-| Price | 39.5 | 40.0 | 38.8 | 31.1 | 36.6 | -7.4% |
-| Ellis | 29.4 | 30.2 | 28.9 | 22.2 | 27.1 | -7.9% |
+| Harlan | 41.9 | 42.7 | 42.0 | 33.5 | 39.4 | -6.0% |
+| Price | 39.5 | 40.0 | 38.8 | 31.1 | 36.6 | -7.3% |
+| Ellis | 29.4 | 25.5 | 26.4 | 20.2 | 24.0 | **-18.4%** |
 
-**This reverses the original draft's conclusion.** All three counties are
-under plan for Q1, and **March — not the strongest month, but the weakest**
-for every county. Ellis is the furthest under plan of the three, which
-directly supports the board director's concern rather than contradicting it.
+**Ellis is the most under-served county by a wide margin** — more than double the shortfall of Harlan or Price. The board chair's concern about Ellis is borne out directly in the Q1 numbers.
+
+March was the weakest month for all three counties: every county's per-family delivery dropped sharply in March relative to January and February.
 
 ## Agencies furthest under allocation
 
@@ -26,81 +22,38 @@ directly supports the board director's concern rather than contradicting it.
 |---|---|---:|
 | Ellis Senior Center | Ellis | -48.0% |
 | New Hope Shelter | Ellis | -42.2% |
-| Southside Church Pantry | Ellis | -36.4% |
-| Lincoln HS Backpack Program | Harlan | -16.2% |
-| Price Head Start | Price | -15.9% |
+| Southside Church Pantry | Ellis | -39.8% |
 
-**All three of the most under-allocated agencies are in Ellis County.** The
-original draft's list (Mt Zion Food Pantry -61.9%, Ellis Senior Center
--43.2%, Grace Fellowship Church -32.9%) was distorted by unmerged spelling
-variants in the delivery log — see below. Mt Zion and Grace Fellowship are
-actually close to plan (-6.5% and -5.3%) once their deliveries are correctly
-combined; Ellis Senior Center's shortfall is real and, if anything, slightly
-larger than originally reported.
+All three agencies furthest under their planned allocation this quarter are in Ellis County. Ellis Senior Center received 10,862 lbs against a planned 20,886 lbs for the quarter — about half its target.
 
 ## Hub agencies
 
-The original draft named Open Door Mission, Northgate Church Pantry, and
-Bethel AME Food Ministry as our "largest partners by families served." That's
-not supported by the data — those three agencies report 118, 102, and 138
-families/month respectively, below the county medians (the largest by
-families served are actually Price Head Start at 338 and First Baptist
-Pantry at 314). Per the handbook, hub-to-satellite forwarding isn't tracked
-in any system, so hub status can't be confirmed or ranked from this data —
-recommend removing this section from the board version rather than stating
-an unverified claim, or checking with Marcus/Priya directly if the board
-needs it.
+By families served monthly, the largest partner in each county is:
+
+- **Ellis:** Ellis Rescue Mission (312 families)
+- **Harlan:** First Baptist Pantry (314 families)
+- **Price:** Price Head Start (338 families)
+
+Note: the handbook defines a "hub" as an agency that informally forwards part of its allocation to smaller satellite pantries we don't deliver to directly. That forwarding isn't tracked in any data we have, so beyond the families-served figures above, we can't confirm from data which agencies function as true hubs.
 
 ## Recommended actions
 
-1. **Prioritize the three Ellis agencies above for allocation review**
-   (Ellis Senior Center, New Hope Shelter, Southside Church Pantry) — the
-   data supports these, not "St Marks Pantry" from the original draft, which
-   is not one of our 47 partner agencies (see Data Hygiene).
-2. Ask Priya to audit the Ellis delivery routes — the handbook notes Ellis is
-   our longest run (~50 min each way) and the stops most likely to get
-   short-loaded when a truck is tight on time or weight. That operational
-   detail lines up with what the corrected numbers show.
-3. Note for the formula review: Ellis serves **1,341 families** (not 1,890 —
-   corrected, see Data Hygiene) on the lowest per-family planned allocation
-   of the three counties (29.4 vs. 41.9 Harlan, 39.5 Price). That gap exists
-   independent of the Q1 delivery shortfall and is worth the board's
-   attention on its own.
+1. **Prioritize the three most under-allocated Ellis agencies for review** — Ellis Senior Center, New Hope Shelter, and Southside Church Pantry. Per the handbook, any allocation change needs Marcus's review against current inventory before anything is committed.
+2. **Investigate the Ellis delivery logging.** All 18 duplicate delivery records found in the Q1 export belong to Ellis County agencies, spread across all three trucks (see Data Notes). This looks like a systematic logging or export issue specific to Ellis stops — worth a targeted check by Marcus's team, not just a general route review. (Warehouse, trucks, and partner-agency delivery operations are Marcus's area per the handbook.)
+3. **Resolve the "St Marks Pantry" record** (see Data Notes) before it's included in any agency's totals or used for an allocation decision.
+4. **For the formula review:** Ellis serves 1,341 families on the lowest planned per-family allocation of the three counties (29.4 lbs, vs. 41.9 Harlan and 39.5 Price) — a structural gap that exists independent of the Q1 delivery shortfall and is worth the board's attention on its own.
 
-*Context: Ellis is our highest Spanish-speaking-share county. Routes and
-truck schedules are owned by Priya.*
+*Context: Ellis is our highest Spanish-speaking-share county.*
+
+## Data notes
+
+Issues found in the raw delivery export, stated plainly rather than smoothed over:
+
+1. **47 test rows excluded (46,953 lbs).** Every one is dated March 1, assigned to truck `T-99`, and logged at exactly 999 lbs — one per agency. This matches the handbook's note that T-99 is the warehouse's month-start scale/barcode calibration slot, not a real delivery route. Removed from all totals above. *Worth a one-line confirmation from Marcus's team.*
+2. **18 duplicate delivery records excluded (12,356 lbs).** Same agency, date, weight, and truck, logged twice. Every one belongs to an Ellis County agency — none in Harlan or Price. Removing these is what produces Ellis's -18.4% figure (leaving them in would understate the shortfall at roughly -8%), so **before this is final, Marcus's team should confirm these are true duplicates and not two legitimate same-day deliveries.**
+3. **Spelling variants merged for 3 agencies:** "Grace Fellowship" / "Grace Fellowsihp" → Grace Fellowship Church; "Mount Zion Food Pantry" / "Mt. Zion Food Pantry" → Mt Zion Food Pantry; "St. Paul Food Shelf" → St Paul Food Shelf. (Left unmerged, Mt Zion would falsely appear to be at -61.9%; combined, it's actually -6.5%, in line with the rest of Price County.)
+4. **One unresolved agency name: "St Marks Pantry"** (812 lbs, one delivery, Feb 17). It matches none of our 47 roster agencies. Needs a person to identify it — typo, an unrostered partner, or a mis-loaded record — not a guess.
+5. **The export's date coverage is clipped:** records span only the 2nd–27th of each month, with nothing on the 1st or the final days. That uniformity across all three months suggests the export window itself was clipped, not that deliveries paused. The true Q1 total is likely somewhat higher than 562,368 lbs — probably by a similar proportion across all counties, so it shouldn't change the county comparison, but treat the total as a floor rather than an exact figure.
 
 ---
-
-## Data hygiene issues found (per your request, flagging rather than papering over)
-
-1. **47 test rows inflated the total by ~47,000 lbs.** The delivery log
-   contains 47 rows on truck `T-99`, all dated March 1, all exactly 999 lbs —
-   one per partner agency. These are scale/barcode-reader test entries the
-   warehouse team runs at month-start, not real deliveries. They accounted
-   for the entire gap between the original draft's total (621,677 lbs) and
-   the corrected total (574,724 lbs), and skewed March — and therefore
-   Ellis's standing — upward in the original draft.
-2. **Agency names are entered by hand at the truck and aren't consistent.**
-   I found and merged: "Grace Fellowship" / "Grace Fellowsihp" →
-   "Grace Fellowship Church"; "Mount Zion Food Pantry" / "Mt. Zion Food
-   Pantry" → "Mt Zion Food Pantry"; "St. Paul Food Shelf" → "St Paul Food
-   Shelf." Unmerged, these variants each looked like a separate
-   under-performing agency, which is most of why Mt Zion and Grace
-   Fellowship looked far worse in the original draft than they actually are.
-3. **One delivery doesn't match any partner agency.** 812 lbs went to "St
-   Marks Pantry" on Feb 17 (truck T-14) — this name isn't in the 47-agency
-   roster and isn't a clear misspelling of an existing one (we do have a
-   St Andrew, St James, and St Paul, but no St Mark). Worth confirming with
-   Marcus/the warehouse team whether this is a new/non-partner recipient or
-   a data entry error, since it's currently sitting outside any tracked
-   allocation.
-4. **The families-served figures come from the roster (self-reported by
-   agencies), not an independent count** — if any agency's number is stale,
-   the per-family math shifts accordingly. Worth a periodic refresh cadence
-   if that's not already happening.
-
-*Corrected against `partner_agencies.csv`/`.xlsx` and
-`distribution_log_q1.csv`/`.xlsx` — please have Marcus spot-check the
-T-99 exclusion and the St Marks Pantry entry before this goes to the board,
-since both come from his team's data.*
+*Please have Marcus's team confirm the T-99 and Ellis-duplicate explanations before this goes to the board — both are inferred from the delivery data and the handbook, not confirmed directly with the warehouse.*
